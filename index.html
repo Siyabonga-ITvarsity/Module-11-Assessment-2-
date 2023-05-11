@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>FoodieFanatix Website </title>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <link href="fontawesome/css/all.css" rel="stylesheet">
+    </head>
+
+    <body onload="init()">
+        <div class="d-flex flex-column align-items-center p-3 bg-white border-bottom box-shadow fixed-top">
+            <img src="Images/Logo.jpg" height="40"/>
+            <nav>
+                <a id="getLatest" class="p-2 text-dark" href="#">Latest Dishes</a>
+                <a id="getAll" class="p-2 text-dark active" href="#">All From Africa</a>
+                <a id="getPopular" class="p-2 text-dark" href="#">Popular Dishes </a>
+            </nav>
+        </div>
+        
+        <div class="blog-header mx-auto text-center">
+            <h1>Is it Beautiful?</h1>
+            <p class="lead">All the latest <strong><em>Tech</em></strong>, <strong><em>Design</em></strong> and <strong><em>Development</em></strong> news from around the world.</p>
+        </div>
+        
+        <div class="container team">
+            <img src="Images/1.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/2.png" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/3.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/4.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/5.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/6.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/7.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/8.jpg" class="img-thumbnail rounded-square" width="90"/>
+            <img src="Images/9.jpg" class="img-thumbnail rounded-square" width="90"/>
+        </div>
+        
+        <div class="row container mx-auto">
+            <div class="column" id="posts">
+               
+            </div>
+        </div>
+
+
+
+        <h2> Piri piri chicken, Mozambique </h2>
+        <img src="Images/piri-piri-chicken.jpg">
+        <p> Sizzling, spicy prawns and seafood are often a first choice for visitors to Maputo, but don’t miss the iconic </p>
+        <p> ozambican dish Galinha à Zambeziana, a succulent feast of chicken cooked with lime, pepper, garlic </p>
+        <p> Where to taste it: Nkope restaurant, Sunbird Livingstonia Beach, Senga Bay, Salima.  </p>
+
+        <p> Tel: +265 1 594 545  </p>
+
+       <H2>Jollof rice and egusi soup, Nigeria</H2>
+        <img src="Images/jollof-rice.jpg">
+        <p>Where to taste it: For authentic jollof rice, egusi soup and other traditional dishes,</p>
+             <p>locals recommend Yellow Chili, 27 Oju Olobun Close, off Bishop Oluwole Street, Lagos.</p>
+             
+              
+            <p>For excellent suya, the place to go is University of Suya, Allen Avenue, Ikeja, Lagos.</p>
+            <p>Tel: +234 809 962 3614. </p>
+
+
+       <h2> Bunny Chow,South Africa </h2>     
+        <img src="Images/bunny-chow.jpg">
+
+        <p>Bunny chow, often referred to simply as a bunny, is an Indian South African fast food dish consisting of a hollowed-out loaf of white bread filled with curry </p>
+        <p> a serving of salad on the side.</p>
+       <p> Where to taste it: Durbanites agree that the finest bunnies are to be found at the Britannia Hotel, 1299 Umgeni Road, Durban.</p> 
+       <p>Tel: +27 31 303 2266</p>
+        
+
+       <h2>Muamba de Galinha, Angola</h2> 
+        <img src="Images/muamba-di-luanda.jpg">
+       <p>Where to taste it: 
+        Visitors to Angola usually make a bee-line for the buzzing beach restaurants on Ilha de Luanda, a small island just off Luanda.</p>
+        
+        <p>Biesmiellah Restaurant, situated in the historic Malay Quarter. Corner Wale Street and Pentz Road, Bo-Kaap, Angola.   </p>
+        <p>Tel: +27 21 423 0850  </p>
+        
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            var rootPath;
+            
+           
+            
+            function getAllPosts(){
+                category = "getAll";
+                fetchPosts(category);
+                setActiveLink(category);
+            }
+            
+            function getPopularPosts(){
+                category = "getPopular";
+                fetchPosts(category);
+                setActiveLink(category);
+            }
+            
+            function getLatestPosts(){
+                category = "getLatest";
+                fetchPosts(category);
+                setActiveLink(category);
+            }
+            
+            function fetchPosts(category){
+                fetch(rootPath + 'get-posts/?category=' + category)
+                    .then(function(response){
+                        return response.json();
+                })
+                    .then(function(data){
+                        displayPosts(data);
+                })
+            }
+            
+            
+            function displayPosts(data){
+                var output = "";
+                
+                for(a = 0; a < data.length; a++){
+                    output +=`
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">${data[a][0]}</h4>
+                            </div>
+                            <div class="card-body">
+                                <img src="${rootPath}/uploads/${data[a][3]}" class="card-img-top"/>
+                                <p class="card-text">${data[a][1]}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-lg btn-link"><i class="far fa-heart"></i></button>
+                                        <button type="button" class="btn btn-lg btn-link"><i class="far fa-comment"></i></button>
+                                        <button type="button" class="btn btn-lg btn-link"><i class="fa fa-retweet"></i></button>
+                                    </div>
+                                    <small class="text-muted">${data[a][2]}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                document.getElementById("posts").innerHTML = output;
+            }
+            
+            function setActiveLink(id){
+                document.getElementById("getAll").classList.remove("active");
+                document.getElementById("getPopular").classList.remove("active");
+                document.getElementById("getLatest").classList.remove("active");
+                
+                document.getElementById(id).classList.add("active");
+            }
+            
+        </script>
+    </body>
+</html>
